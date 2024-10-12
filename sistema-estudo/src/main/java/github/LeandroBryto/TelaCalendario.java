@@ -9,18 +9,24 @@ import java.time.LocalDate;
 public class TelaCalendario {
     private JFrame frame;
     private JButton estudarButton;
+    private JButton voltarButton; // Novo botão "Voltar"
     private JLabel calendarioLabel;
     private DiaDeEstudo diaAtual;  // Instância para o dia de estudo atual
+    private TelaAgendaEstudo telaPrincipal;  // Referência para a tela principal
 
-    public TelaCalendario() {
+    public TelaCalendario(TelaAgendaEstudo telaPrincipal) { // Recebe a tela principal como parâmetro
+        this.telaPrincipal = telaPrincipal;
+
         frame = new JFrame("Calendário de Estudo");
         estudarButton = new JButton("Estudar Agora");
+        voltarButton = new JButton("Voltar"); // Inicializa o botão "Voltar"
         calendarioLabel = new JLabel();
 
         // Layout
         frame.setLayout(new FlowLayout());
         frame.add(new JLabel("Agenda de Estudo:"));
         frame.add(estudarButton);
+        frame.add(voltarButton);  // Adiciona o botão "Voltar" à tela
         frame.add(calendarioLabel);
 
         // Configurações da janela
@@ -45,6 +51,16 @@ public class TelaCalendario {
                 } else {
                     JOptionPane.showMessageDialog(frame, "Estudo adiado.");
                 }
+            }
+        });
+
+        // Ação para o botão Voltar
+        voltarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Fecha a tela de calendário e retorna à tela principal
+                frame.dispose();
+                telaPrincipal.setVisible(true); // Torna a tela principal visível novamente
             }
         });
     }

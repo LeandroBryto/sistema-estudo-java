@@ -1,47 +1,63 @@
 package github.LeandroBryto;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TelaAgendaEstudo extends JFrame {
+public class TelaAgendaEstudo {
+    private JFrame frame;
     private String nomeUsuario;
 
     public TelaAgendaEstudo(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
-        setTitle("Agenda de Estudo - " + nomeUsuario);
-        setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        frame = new JFrame("Agenda de Estudo");
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(4, 1));
-
+        // Definindo layout e botões da tela principal
         JButton calendarioButton = new JButton("Calendário");
-        JButton comentariosButton = new JButton("Comentários (não implementado)");
+        JButton comentariosButton = new JButton("Comentários");
         JButton relatorioButton = new JButton("Relatório");
-        JButton sairButton = new JButton("Sair");
 
-        calendarioButton.addActionListener(e -> {
-            TelaCalendario telaCalendario = new TelaCalendario();
-            telaCalendario.setVisible(true);
-            dispose(); // Fecha a tela de agenda
+        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+        frame.add(new JLabel("Bem-vindo, " + nomeUsuario + "!"));
+        frame.add(calendarioButton);
+        frame.add(comentariosButton);
+        frame.add(relatorioButton);
+
+        // Configurações da janela
+        frame.setSize(300, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+
+        // Ação para o botão Calendário
+        calendarioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false); // Oculta a tela principal
+                TelaCalendario telaCalendario = new TelaCalendario(TelaAgendaEstudo.this); // Passa a tela principal
+                telaCalendario.exibir();
+            }
         });
 
-        relatorioButton.addActionListener(e -> {
-            TelaRelatorio telaRelatorio = new TelaRelatorio();
-            telaRelatorio.gerarRelatorio();
+        // Ação para o botão Comentários
+        comentariosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaComentarios telaComentarios = new TelaComentarios(); // Cria nova tela de comentários
+                telaComentarios.exibir(); // Exibe a tela de comentários
+            }
         });
 
-        sairButton.addActionListener(e -> {
-            System.exit(0);
+        // Ação para o botão Relatório
+        relatorioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaRelatorio telaRelatorio = new TelaRelatorio();
+                telaRelatorio.gerarRelatorio();
+            }
         });
+    }
 
-        panel.add(calendarioButton);
-        panel.add(comentariosButton);
-        panel.add(relatorioButton);
-        panel.add(sairButton);
-        add(panel);
+    public void setVisible(boolean b) {
+        frame.setVisible(b);
     }
 }

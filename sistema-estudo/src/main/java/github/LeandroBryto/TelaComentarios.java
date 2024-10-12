@@ -7,47 +7,42 @@ import java.awt.event.ActionListener;
 
 public class TelaComentarios {
     private JFrame frame;
-    private JTextArea comentarioArea;
+    private JTextArea comentariosArea;
     private JButton salvarButton;
-    private JButton limparButton;
+    private String comentarioSalvo;
 
     public TelaComentarios() {
         frame = new JFrame("Comentários sobre o Estudo");
-        comentarioArea = new JTextArea(10, 30);
-        salvarButton = new JButton("Salvar");
-        limparButton = new JButton("Limpar");
+        comentariosArea = new JTextArea(10, 30);  // Área para escrever o comentário
+        salvarButton = new JButton("Salvar Comentário");
 
-        frame.setLayout(new FlowLayout());
-        frame.add(new JLabel("Escreva seus comentários:"));
-        frame.add(new JScrollPane(comentarioArea)); // Adiciona rolagem
-        frame.add(salvarButton);
-        frame.add(limparButton);
+        // Configurações de layout
+        frame.setLayout(new BorderLayout());
+        frame.add(new JLabel("Escreva seus comentários sobre o estudo:"), BorderLayout.NORTH);
+        frame.add(new JScrollPane(comentariosArea), BorderLayout.CENTER); // Area com barra de rolagem
+        frame.add(salvarButton, BorderLayout.SOUTH);
 
+        // Configurações da janela
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
 
-        // Ação para o botão Salvar
+        // Ação do botão "Salvar"
         salvarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                salvarComentario(comentarioArea.getText());
-                JOptionPane.showMessageDialog(frame, "Comentário salvo!");
-                comentarioArea.setText(""); // Limpa a área de texto após salvar
-            }
-        });
-
-        // Ação para o botão Limpar
-        limparButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                comentarioArea.setText(""); // Limpa a área de texto
+                comentarioSalvo = comentariosArea.getText();  // Armazena o comentário
+                JOptionPane.showMessageDialog(frame, "Comentário salvo com sucesso!");
+                frame.dispose();  // Fecha a tela de comentários após salvar
             }
         });
     }
 
-    private void salvarComentario(String comentario) {
-        // Aqui você pode implementar a lógica para salvar o comentário em um arquivo ou banco de dados
-        System.out.println("Comentário salvo: " + comentario);
+    public String getComentarioSalvo() {
+        return comentarioSalvo;
+    }
+
+    public void exibir() {
+        frame.setVisible(true);
     }
 }
