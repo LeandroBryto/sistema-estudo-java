@@ -1,29 +1,53 @@
 package github.LeandroBryto;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class TelaComentarios extends JFrame {
-    private JTextArea comentariosArea;
+public class TelaComentarios {
+    private JFrame frame;
+    private JTextArea comentarioArea;
     private JButton salvarButton;
+    private JButton limparButton;
 
     public TelaComentarios() {
-        setTitle("Comentários do Estudo");
-        setSize(400, 300);
-        setLocationRelativeTo(null);
+        frame = new JFrame("Comentários sobre o Estudo");
+        comentarioArea = new JTextArea(10, 30);
+        salvarButton = new JButton("Salvar");
+        limparButton = new JButton("Limpar");
 
-        comentariosArea = new JTextArea(10, 30);
-        salvarButton = new JButton("Salvar Comentário");
+        frame.setLayout(new FlowLayout());
+        frame.add(new JLabel("Escreva seus comentários:"));
+        frame.add(new JScrollPane(comentarioArea)); // Adiciona rolagem
+        frame.add(salvarButton);
+        frame.add(limparButton);
 
-        salvarButton.addActionListener(e -> {
-            // Lógica para salvar os comentários
-            JOptionPane.showMessageDialog(null, "Comentário salvo com sucesso!");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+
+        // Ação para o botão Salvar
+        salvarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                salvarComentario(comentarioArea.getText());
+                JOptionPane.showMessageDialog(frame, "Comentário salvo!");
+                comentarioArea.setText(""); // Limpa a área de texto após salvar
+            }
         });
 
-        JPanel panel = new JPanel();
-        panel.add(new JScrollPane(comentariosArea));
-        panel.add(salvarButton);
+        // Ação para o botão Limpar
+        limparButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                comentarioArea.setText(""); // Limpa a área de texto
+            }
+        });
+    }
 
-        add(panel);
+    private void salvarComentario(String comentario) {
+        // Aqui você pode implementar a lógica para salvar o comentário em um arquivo ou banco de dados
+        System.out.println("Comentário salvo: " + comentario);
     }
 }
-
