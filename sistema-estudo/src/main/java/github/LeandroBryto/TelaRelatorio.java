@@ -7,7 +7,7 @@ import java.util.List;
 public class TelaRelatorio {
     private List<DiaDeEstudo> diasDeEstudo;
 
-    public TelaRelatorio() {
+    public TelaRelatorio(HistoricoDeEstudo historicoDeEstudo) {
         this.diasDeEstudo = new ArrayList<>();
         // Adicionando alguns dias de estudo para exemplo
         adicionarDiasDeEstudo();
@@ -35,5 +35,8 @@ public class TelaRelatorio {
         for (DiaDeEstudo dia : diasDeEstudo) {
             System.out.println(dia);
         }
+    }
+
+    public void exibir() {
     }
 }

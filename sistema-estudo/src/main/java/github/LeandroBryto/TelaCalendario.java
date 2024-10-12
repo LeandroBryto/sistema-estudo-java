@@ -12,9 +12,9 @@ public class TelaCalendario {
     private JButton voltarButton; // Novo botão "Voltar"
     private JLabel calendarioLabel;
     private DiaDeEstudo diaAtual;  // Instância para o dia de estudo atual
-    private TelaAgendaEstudo telaPrincipal;  // Referência para a tela principal
+    private HistoricoDeEstudo telaPrincipal;  // Referência para a tela principal (agora correto)
 
-    public TelaCalendario(TelaAgendaEstudo telaPrincipal) { // Recebe a tela principal como parâmetro
+    public TelaCalendario(HistoricoDeEstudo telaPrincipal) { // Recebe a tela principal como parâmetro
         this.telaPrincipal = telaPrincipal;
 
         frame = new JFrame("Calendário de Estudo");

@@ -7,15 +7,19 @@ public class DiaDeEstudo {
     private String topico;
     private String local;
     private int horas;
-    private boolean estudado;
+    private boolean estudado;  // Adiciona um campo para verificar se o dia foi estudado
 
     public DiaDeEstudo(LocalDate data) {
-        this.data = data; // Remover o parse, pois data já é do tipo LocalDate
-        this.estudado = false;
+        this.data = data;
+        this.estudado = false;  // Inicializa como não estudado
     }
 
     public LocalDate getData() {
         return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 
     public String getTopico() {
@@ -43,15 +47,15 @@ public class DiaDeEstudo {
     }
 
     public boolean isEstudado() {
-        return estudado;
+        return estudado;  // Retorna se o dia foi estudado
     }
 
     public void marcarEstudado() {
-        this.estudado = true;
+        this.estudado = true;  // Marca o dia como estudado
     }
 
     @Override
     public String toString() {
-        return "Dia: " + data + ", Tópico: " + topico + ", Local: " + local + ", Horas: " + horas + " - " + (estudado ? "Estudado" : "Não Estudado");
+        return "Data: " + data + "\nTópico: " + topico + "\nLocal: " + local + "\nHoras: " + horas + " horas\n";
     }
 }
